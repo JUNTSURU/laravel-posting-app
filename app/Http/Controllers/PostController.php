@@ -62,6 +62,12 @@ public function store(PostRequest $request)
          if ($post->user_id !== Auth::id()) {
              return redirect()->route('posts.index')->with('error_message', '不正なアクセスです。');
          }
+
+             // バリデーションを設定する
+    $request->validate([
+        'title'=>'required|max:40',
+        'content'=>'required|max:200'
+    ]);
  
          $post->title = $request->input('title');
          $post->content = $request->input('content');
